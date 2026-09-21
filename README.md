@@ -344,16 +344,23 @@ Deployed using **Railway**.
 
 Passionate about building modern web applications, full-stack systems, and intuitive user experiences.
 
-### Connect With Me
+### 🔗 Connect With Me
 
-📧 **Email:**
-[Som758510@gmail.com](mailto:Som758510@gmail.com)
+| Platform         | Link                                              |
+| ---------------- | ------------------------------------------------- |
+| 🌐 **Portfolio** | https://om-portfolio-red.vercel.app/              |
+| 💼 **LinkedIn**  | https://www.linkedin.com/in/omsharma2004/         |
+| 🐙 **GitHub**    | https://github.com/OMsharma200429                 |
+| 📧 **Email**     | [Som758510@gmail.com](mailto:Som758510@gmail.com) |
 
-💼 **LinkedIn:**
-https://www.linkedin.com/in/omsharma2004/
+### 🛠️ Interests
 
-🔗 **GitHub:**
-https://github.com/OMsharma200429
+* Java
+* Spring Boot
+* React
+* Full-Stack Development
+* UI/UX Design
+* AI & Modern Web Technologies
 
 ### Interests
 
