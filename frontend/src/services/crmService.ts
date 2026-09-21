@@ -439,12 +439,8 @@ export const getOverviewStats = () => {
 // GET API TICKETS
 // =====================================================
 
-export const getApiTickets = async (): Promise<
-  Ticket[]
-> => {
-
+export const getApiTickets = async (): Promise<Ticket[]> => {
   try {
-
     const response = await fetch(
       `${API_BASE_URL}/api/tickets`
     );
@@ -455,20 +451,30 @@ export const getApiTickets = async (): Promise<
       );
     }
 
-    const data =
-      await response.json();
+    const data: unknown = await response.json();
 
-    if (!Array.isArray(data)) {
-      return getSortedTickets();
+    let apiTickets: typeof seedTickets = [];
+
+    if (Array.isArray(data)) {
+      apiTickets = data as typeof seedTickets;
+    } else if (
+      typeof data === 'object' &&
+      data !== null &&
+      'value' in data &&
+      Array.isArray(data.value)
+    ) {
+      apiTickets = data.value as typeof seedTickets;
     }
 
-    return data.map(
-      (item) =>
-        mapApiTicketToUiTicket(item)
+    if (apiTickets.length === 0) {
+      return [];
+    }
+
+    return apiTickets.map((item) =>
+      mapApiTicketToUiTicket(item)
     );
 
   } catch (error) {
-
     console.error(
       'Failed to load tickets:',
       error
