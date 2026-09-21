@@ -5,6 +5,7 @@ import { PriorityBadge } from '../components/common/PriorityBadge';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { customers } from '../data/seedData';
 import { updateApiTicket } from '../services/crmService';
+import type { Ticket } from '../types/crm';
 
 const commentOrder = ['customer', 'agent', 'system'];
 

@@ -11,7 +11,7 @@ import type {
 } from '../types/crm';
 
 const API_BASE_URL =
-  'https://support-crm-production-8f1c.up.railway.app';
+  'https://support-crm-production-9149.up.railway.app';
 
 
 // =====================================================
