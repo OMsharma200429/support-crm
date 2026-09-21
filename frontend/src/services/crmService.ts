@@ -564,6 +564,10 @@ export const createApiTicket = async (
 // UPDATE API TICKET
 // =====================================================
 
+// =====================================================
+// UPDATE API TICKET
+// =====================================================
+
 export const updateApiTicket = async (
   ticketId: string,
   payload: {
@@ -576,46 +580,41 @@ export const updateApiTicket = async (
     notes?: string;
   }
 ) => {
-
   try {
+    console.log('Updating API ticket:', ticketId, payload);
 
     const response = await fetch(
-      `${API_BASE_URL}/api/tickets/${ticketId}`,
+      `${API_BASE_URL}/api/tickets/${encodeURIComponent(ticketId)}`,
       {
         method: 'PUT',
-
         headers: {
-          'Content-Type':
-            'application/json',
+          'Content-Type': 'application/json',
         },
-
-        body: JSON.stringify(
-          payload
-        ),
+        body: JSON.stringify(payload),
       }
     );
 
-
     if (!response.ok) {
+      const errorText = await response.text();
+
+      console.error(
+        'Ticket update failed:',
+        response.status,
+        errorText
+      );
+
       throw new Error(
         `Could not update ticket: ${response.status}`
       );
     }
 
-
     return await response.json();
 
   } catch (error) {
-
-    console.error(
-      'Ticket update failed:',
-      error
-    );
-
+    console.error('Ticket update failed:', error);
     return null;
   }
 };
-
 
 // =====================================================
 // UPDATE ONLY STATUS
