@@ -15,13 +15,69 @@ const API_BASE_URL =
 
 
 // =====================================================
+// API TYPES
+// =====================================================
+
+type ApiNote = {
+  id?: number;
+  note_text?: string;
+  text?: string;
+  created_at?: string;
+};
+
+type ApiTicketPayload = {
+  ticket_id?: string;
+  id?: string;
+
+  subject?: string;
+  title?: string;
+
+  customer_name?: string;
+  customerName?: string;
+
+  customer_email?: string;
+  customerEmail?: string;
+
+  company?: string | null;
+
+  description?: string;
+
+  status?: string;
+  priority?: string;
+
+  assignee?: string | null;
+  assignee_name?: string | null;
+
+  category?: string;
+  channel?: string;
+
+  tags?: string[] | string | null;
+
+  related_tickets?: string[] | string | null;
+
+  created_at?: string;
+  updated_at?: string;
+
+  notes?: ApiNote[] | string[] | null;
+};
+
+type ApiTicketListResponse =
+  | ApiTicketPayload[]
+  | {
+      value?: ApiTicketPayload[];
+      Count?: number;
+    };
+
+
+// =====================================================
 // STATUS NORMALIZER
 // =====================================================
 
 const normalizeStatus = (
   value?: string
 ): TicketStatus => {
-  const normalized = (value ?? 'Open').toLowerCase();
+  const normalized =
+    (value ?? 'Open').trim().toLowerCase();
 
   if (normalized === 'pending') {
     return 'Pending';
@@ -46,7 +102,8 @@ const normalizeStatus = (
 const normalizePriority = (
   value?: string
 ): Ticket['priority'] => {
-  const normalized = (value ?? '').toLowerCase();
+  const normalized =
+    (value ?? '').trim().toLowerCase();
 
   if (normalized === 'low') {
     return 'Low';
@@ -138,46 +195,7 @@ const getValidCustomerEmail = (
 // =====================================================
 
 const mapApiTicketToUiTicket = (
-  payload: {
-    ticket_id?: string;
-    id?: string;
-
-    subject?: string;
-    title?: string;
-
-    customer_name?: string;
-    customerName?: string;
-
-    customer_email?: string;
-    customerEmail?: string;
-
-    company?: string;
-
-    description?: string;
-
-    status?: string;
-    priority?: string;
-
-    assignee?: string;
-    assignee_name?: string;
-
-    category?: string;
-    channel?: string;
-
-    tags?: string[] | string | null;
-
-    related_tickets?: string[] | string | null;
-
-    created_at?: string;
-    updated_at?: string;
-
-    notes?:
-      | Array<{
-          note_text?: string;
-          text?: string;
-        }>
-      | string[];
-  }
+  payload: ApiTicketPayload
 ): Ticket => {
 
   const ticketId =
@@ -214,28 +232,32 @@ const mapApiTicketToUiTicket = (
     createdAt;
 
 
-  // -------------------------
+  // ===================================================
   // NOTES
-  // -------------------------
+  // ===================================================
 
-  const notes = Array.isArray(payload.notes)
-    ? payload.notes.map((note) => {
-        if (typeof note === 'string') {
-          return note;
-        }
+  const notes: string[] =
+    Array.isArray(payload.notes)
+      ? payload.notes
+          .map((note) => {
 
-        return (
-          note.note_text ??
-          note.text ??
-          'Updated ticket'
-        );
-      })
-    : [];
+            if (typeof note === 'string') {
+              return note;
+            }
+
+            return (
+              note.note_text ??
+              note.text ??
+              ''
+            );
+          })
+          .filter(Boolean)
+      : [];
 
 
-  // -------------------------
+  // ===================================================
   // TAGS
-  // -------------------------
+  // ===================================================
 
   const parsedTags =
     parseListField(payload.tags);
@@ -255,9 +277,9 @@ const mapApiTicketToUiTicket = (
         ];
 
 
-  // -------------------------
+  // ===================================================
   // RELATED TICKETS
-  // -------------------------
+  // ===================================================
 
   const relatedTickets =
     parseListField(
@@ -265,9 +287,49 @@ const mapApiTicketToUiTicket = (
     );
 
 
-  // -------------------------
+  // ===================================================
+  // COMMENT TIME
+  // ===================================================
+
+  const formattedUpdatedAt =
+    new Date(updatedAt).toLocaleDateString(
+      undefined,
+      {
+        month: 'short',
+        day: 'numeric',
+      }
+    );
+
+
+  // ===================================================
+  // COMMENTS
+  // ===================================================
+
+  const comments =
+    notes.length > 0
+      ? notes.map((note, index) => ({
+          id: `api-comment-${ticketId}-${index}`,
+          sender: 'system' as const,
+          author: 'System',
+          text: note,
+          time: formattedUpdatedAt,
+          type: 'internal' as const,
+        }))
+      : [
+          {
+            id: `api-comment-${ticketId}-0`,
+            sender: 'system' as const,
+            author: 'System',
+            text: 'Ticket created via API sync.',
+            time: formattedUpdatedAt,
+            type: 'internal' as const,
+          },
+        ];
+
+
+  // ===================================================
   // RETURN UI TICKET
-  // -------------------------
+  // ===================================================
 
   return {
     id: ticketId,
@@ -275,15 +337,18 @@ const mapApiTicketToUiTicket = (
     title: subject,
 
     customerId,
+
     customerName,
 
-    status: normalizeStatus(
-      payload.status
-    ),
+    status:
+      normalizeStatus(
+        payload.status
+      ),
 
-    priority: normalizePriority(
-      payload.priority
-    ),
+    priority:
+      normalizePriority(
+        payload.priority
+      ),
 
     category:
       payload.category ??
@@ -299,9 +364,11 @@ const mapApiTicketToUiTicket = (
       'Unassigned',
 
     createdAt,
+
     updatedAt,
 
     slaHours: 18,
+
     resolutionHours: 8,
 
     tags,
@@ -313,47 +380,7 @@ const mapApiTicketToUiTicket = (
     linkedIssues:
       relatedTickets,
 
-    comments:
-      notes.length > 0
-        ? notes.map((note, index) => ({
-            id: `api-comment-${index}`,
-            sender: 'system',
-            author: 'System',
-            text: note,
-
-            time: new Date(
-              updatedAt
-            ).toLocaleDateString(
-              undefined,
-              {
-                month: 'short',
-                day: 'numeric',
-              }
-            ),
-
-            type: 'internal',
-          }))
-        : [
-            {
-              id: 'api-comment-0',
-              sender: 'system',
-              author: 'System',
-              text:
-                'Ticket created via API sync.',
-
-              time: new Date(
-                updatedAt
-              ).toLocaleDateString(
-                undefined,
-                {
-                  month: 'short',
-                  day: 'numeric',
-                }
-              ),
-
-              type: 'internal',
-            },
-          ],
+    comments,
 
     notes,
 
@@ -366,15 +393,8 @@ const mapApiTicketToUiTicket = (
         detail:
           'Ticket synced from backend API.',
 
-        time: new Date(
-          updatedAt
-        ).toLocaleDateString(
-          undefined,
-          {
-            month: 'short',
-            day: 'numeric',
-          }
-        ),
+        time:
+          formattedUpdatedAt,
       },
     ],
 
@@ -401,8 +421,10 @@ export const getSortedTickets = (): Ticket[] => {
 export const getTicketById = (
   ticketId: string
 ): Ticket | undefined => {
+
   return getSortedTickets().find(
-    (ticket) => ticket.id === ticketId
+    (ticket) =>
+      ticket.id === ticketId
   );
 };
 
@@ -419,6 +441,7 @@ export const getCustomers = (): Customer[] => {
 export const getCustomerById = (
   customerId: string
 ): Customer | undefined => {
+
   return getCustomers().find(
     (customer) =>
       customer.id === customerId
@@ -440,43 +463,66 @@ export const getOverviewStats = () => {
 // =====================================================
 
 export const getApiTickets = async (): Promise<Ticket[]> => {
+
   try {
+
     const response = await fetch(
-      `${API_BASE_URL}/api/tickets`
+      `${API_BASE_URL}/api/tickets`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      }
     );
 
+
     if (!response.ok) {
+
       throw new Error(
         `Request failed with status ${response.status}`
       );
     }
 
-    const data: unknown = await response.json();
 
-    let apiTickets: unknown[] = [];
+    const data =
+      (await response.json()) as ApiTicketListResponse;
+
+
+    let apiTickets: ApiTicketPayload[] = [];
+
+
+    // Backend may return:
+    // [ ...tickets ]
 
     if (Array.isArray(data)) {
+
       apiTickets = data;
-    } else if (
+
+    }
+
+    // Backend currently returns:
+    // { value: [...], Count: 4 }
+
+    else if (
       typeof data === 'object' &&
       data !== null &&
-      'value' in data &&
       Array.isArray(data.value)
     ) {
-      apiTickets = data.value;
+
+      apiTickets =
+        data.value;
+
     }
 
-    if (apiTickets.length === 0) {
-      return [];
-    }
 
-    return apiTickets.map((item) =>
-      mapApiTicketToUiTicket(
-        item as Parameters<typeof mapApiTicketToUiTicket>[0]
-      )
+    return apiTickets.map(
+      (item: ApiTicketPayload) =>
+        mapApiTicketToUiTicket(item)
     );
 
   } catch (error) {
+
     console.error(
       'Failed to load tickets:',
       error
@@ -484,7 +530,6 @@ export const getApiTickets = async (): Promise<Ticket[]> => {
 
     return [];
   }
-
 };
 
 
@@ -504,44 +549,53 @@ export const createApiTicket = async (
 
   try {
 
-    const response = await fetch(
-      `${API_BASE_URL}/api/tickets`,
-      {
-        method: 'POST',
+    const response =
+      await fetch(
+        `${API_BASE_URL}/api/tickets`,
+        {
+          method: 'POST',
 
-        headers: {
-          'Content-Type':
-            'application/json',
-        },
+          headers: {
+            'Content-Type':
+              'application/json',
 
-        body: JSON.stringify({
-          customer_name:
-            payload.customerName,
+            Accept:
+              'application/json',
+          },
 
-          customer_email:
-            getValidCustomerEmail(
-              payload.customerName
-            ),
+          body:
+            JSON.stringify({
+              customer_name:
+                payload.customerName,
 
-          subject:
-            payload.title,
+              customer_email:
+                getValidCustomerEmail(
+                  payload.customerName
+                ),
 
-          description:
-            `${payload.category} issue reported by ${payload.customerName}.`,
+              subject:
+                payload.title,
 
-          status:
-            payload.status,
+              description:
+                `${payload.category} issue reported by ${payload.customerName}.`,
 
-          priority:
-            payload.priority,
-        }),
-      }
-    );
+              status:
+                payload.status,
+
+              priority:
+                payload.priority,
+            }),
+        }
+      );
 
 
     if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
       throw new Error(
-        `Could not create ticket: ${response.status}`
+        `Could not create ticket: ${response.status} ${errorText}`
       );
     }
 
@@ -564,10 +618,6 @@ export const createApiTicket = async (
 // UPDATE API TICKET
 // =====================================================
 
-// =====================================================
-// UPDATE API TICKET
-// =====================================================
-
 export const updateApiTicket = async (
   ticketId: string,
   payload: {
@@ -580,45 +630,121 @@ export const updateApiTicket = async (
     notes?: string;
   }
 ) => {
+
   try {
-    console.log('Updating API ticket:', ticketId, payload);
 
-    const response = await fetch(
-      `${API_BASE_URL}/api/tickets/${encodeURIComponent(ticketId)}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    // IMPORTANT:
+    // Only backend ticket IDs should be sent here.
+    //
+    // Valid examples:
+    // TKT-0001
+    // TKT-0002
+    // TKT-0005
+    //
+    // Old local seed IDs like T-1348 do not exist
+    // in the Railway backend.
 
-    if (!response.ok) {
-      const errorText = await response.text();
+    if (
+      !ticketId ||
+      ticketId.startsWith('T-')
+    ) {
 
       console.error(
-        'Ticket update failed:',
+        'Cannot update local/seed ticket through API:',
+        ticketId
+      );
+
+      return null;
+    }
+
+
+    const url =
+      `${API_BASE_URL}/api/tickets/${encodeURIComponent(ticketId)}`;
+
+
+    console.log(
+      'Updating API ticket:',
+      url,
+      payload
+    );
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method: 'PUT',
+
+          headers: {
+            'Content-Type':
+              'application/json',
+
+            Accept:
+              'application/json',
+          },
+
+          body:
+            JSON.stringify(payload),
+        }
+      );
+
+
+    const responseText =
+      await response.text();
+
+
+    if (!response.ok) {
+
+      console.error(
+        'Ticket update API error:',
         response.status,
-        errorText
+        responseText
       );
 
       throw new Error(
-        `Could not update ticket: ${response.status}`
+        `Could not update ticket: ${response.status} ${responseText}`
       );
     }
 
-    return await response.json();
+
+    if (!responseText) {
+      return {
+        success: true,
+        updated_at:
+          new Date().toISOString(),
+      };
+    }
+
+
+    try {
+
+      return JSON.parse(
+        responseText
+      );
+
+    } catch {
+
+      return {
+        success: true,
+        updated_at:
+          new Date().toISOString(),
+      };
+    }
 
   } catch (error) {
-    console.error('Ticket update failed:', error);
+
+    console.error(
+      'Ticket update failed:',
+      error
+    );
+
     return null;
   }
 };
 
+
 // =====================================================
 // UPDATE ONLY STATUS
-// IMPORTANT FOR App.tsx
 // =====================================================
 
 export const updateApiTicketStatus = async (
@@ -626,12 +752,16 @@ export const updateApiTicketStatus = async (
   status: TicketStatus
 ) => {
 
-  return updateApiTicket(
-    ticketId,
-    {
-      status,
-    }
-  );
+  const result =
+    await updateApiTicket(
+      ticketId,
+      {
+        status,
+      }
+    );
+
+
+  return result !== null;
 };
 
 
@@ -752,6 +882,7 @@ export const searchRecords = (
   if (!normalized) {
 
     return {
+
       commands: [
         'Overview',
         'Tickets',
@@ -815,6 +946,7 @@ export const searchRecords = (
 
 
   return {
+
     commands,
 
     tickets:
