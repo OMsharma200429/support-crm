@@ -1,225 +1,128 @@
-# 🚀 SupportCRM
+# Support CRM
 
-### Modern Full-Stack Customer Support Ticketing CRM
+A modern full-stack Customer Support CRM application for managing support tickets, customers, priorities, assignments, statuses, internal notes, and ticket activity through a clean and responsive dashboard.
 
-SupportCRM is a modern full-stack customer support management system designed to help support teams manage tickets, customers, priorities, assignments, internal notes, and support workflows from a centralized dashboard.
+## 🚀 Live Demo
 
-The application uses a **React + TypeScript frontend**, **FastAPI backend**, and **SQLite database**, with the frontend and backend deployed separately for production.
+**Frontend:**
+https://support-crm-chi.vercel.app/
+
+**Backend API:**
+https://support-crm-production-9149.up.railway.app/
 
 ---
 
-## 🌐 Live Demo
+## 📌 Overview
+
+Support CRM is a full-stack customer support management system designed to streamline ticket handling and support operations.
+
+The application provides a centralized dashboard where support agents can:
+
+* Create and manage support tickets
+* Track ticket status and priority
+* Assign tickets to support agents
+* Add internal notes
+* Manage tags and related tickets
+* View customer information
+* Search and filter tickets
+* Monitor ticket activity
+* Work with live backend API data
+
+The frontend is built with React and TypeScript, while the backend provides RESTful APIs using FastAPI.
+
+---
+
+## ✨ Features
+
+### 🎫 Ticket Management
+
+* Create new support tickets
+* View complete ticket details
+* Update ticket status
+* Update priority
+* Assign tickets
+* Add internal notes
+* Manage tags
+* Manage related tickets
+* Track ticket creation and update timestamps
+
+### 👥 Customer Management
+
+* Customer profiles
+* Customer contact information
+* Company information
+* Customer-related ticket data
+
+### 🔎 Search & Filtering
+
+* Global ticket search
+* Search by ticket ID
+* Search by customer
+* Search by subject
+* Filter by status
+* Filter by priority
+* Filter by assignee
+* Filter by customer
+* Filter urgent and unassigned tickets
+
+### 📊 Dashboard
+
+* Overview dashboard
+* Ticket statistics
+* Analytics
+* Customer overview
+* Support activity tracking
+
+### 🔄 REST API Integration
+
+The frontend communicates with the FastAPI backend through REST APIs.
+
+Supported operations include:
+
+* `GET /api/tickets`
+* `POST /api/tickets`
+* `GET /api/tickets/{ticket_id}`
+* `PUT /api/tickets/{ticket_id}`
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
 
-**Live Application:**
-https://frontend-three-psi-oyid8p4g16.vercel.app/
+* React
+* TypeScript
+* Vite
+* React Router
+* Tailwind CSS
+* Framer Motion
+* Lucide React
+* Recharts
 
-### Backend API
+### Backend
 
-**Production API:**
-https://support-crm-production-9149.up.railway.app/
+* Python
+* FastAPI
+* Uvicorn
+* Pydantic
+* SQLite
+* REST API
+* CORS
 
-### GitHub Repository
+### Development Tools
 
-**Source Code:**
-https://github.com/OMsharma200429/support-crm
-
----
-
-## 📸 Project Preview
-
-> Screenshots of the application will be added here.
-
-### Dashboard
-
-![SupportCRM Dashboard](docs/screenshots/dashboard.png)
-
-### Ticket Management
-
-![Ticket Management](docs/screenshots/tickets.png)
-
-### Ticket Details
-
-![Ticket Details](docs/screenshots/ticket-details.png)
-
-### Analytics
-
-![Analytics](docs/screenshots/analytics.png)
+* Git
+* GitHub
+* VS Code
+* Vercel
+* Railway
 
 ---
 
-# ✨ Features
-
-## 🎫 Ticket Management
-
-* Create support tickets
-* View support tickets
-* View detailed ticket information
-* Update ticket status
-* Update ticket priority
-* Assign tickets
-* Add ticket tags
-* Manage related tickets
-* Add internal notes
-* Persist notes through the backend API
-* Track ticket creation and update timestamps
-* Ticket activity history
-
----
-
-## 👥 Customer Management
-
-* Customer profiles
-* Customer information
-* Company information
-* Customer email information
-* Customer-ticket relationships
-* Customer support history
-
----
-
-## 📊 Dashboard & Analytics
-
-* Support overview dashboard
-* Ticket statistics
-* Ticket status distribution
-* Priority tracking
-* Analytics dashboard
-* Support activity information
-* SLA information
-* Resolution information
-
----
-
-## 🔎 Search & Filtering
-
-SupportCRM provides global search and filtering capabilities.
-
-Users can search across:
-
-* Ticket IDs
-* Ticket titles
-* Customers
-* Tags
-* Customer information
-
-Tickets can also be filtered by:
-
-* Status
-* Priority
-* Assignee
-* Customer
-* Ticket scope
-* Urgent tickets
-* Unassigned tickets
-* My tickets
-
----
-
-## 📝 Internal Notes
-
-Support agents can add internal notes directly from the ticket detail page.
-
-Notes are sent to the backend API and stored with the ticket.
-
-Example:
-
-```json
-{
-  "notes": "Customer confirmed that the issue has been resolved."
-}
-```
-
-Notes remain available after refreshing the application because they are persisted through the backend.
-
----
-
-# 🏗️ System Architecture
-
-```text
-                         ┌─────────────────────┐
-                         │       User          │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │       Vercel        │
-                         │  React + TypeScript │
-                         └──────────┬──────────┘
-                                    │
-                              HTTPS REST API
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │       Railway       │
-                         │       FastAPI       │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │       SQLite        │
-                         │    Support CRM DB   │
-                         └─────────────────────┘
-```
-
----
-
-# 🛠️ Tech Stack
-
-## Frontend
-
-| Technology    | Purpose               |
-| ------------- | --------------------- |
-| React         | UI development        |
-| TypeScript    | Type-safe development |
-| Vite          | Frontend tooling      |
-| React Router  | Application routing   |
-| Framer Motion | UI animations         |
-| Lucide React  | Icons                 |
-| Recharts      | Data visualization    |
-
----
-
-## Backend
-
-| Technology | Purpose             |
-| ---------- | ------------------- |
-| Python     | Backend development |
-| FastAPI    | REST API framework  |
-| Uvicorn    | ASGI server         |
-| Pydantic   | Data validation     |
-| SQLite     | Database            |
-
----
-
-## Development & Deployment
-
-| Tool    | Purpose                 |
-| ------- | ----------------------- |
-| Git     | Version control         |
-| GitHub  | Source code hosting     |
-| VS Code | Development environment |
-| Vercel  | Frontend deployment     |
-| Railway | Backend deployment      |
-
----
-
-# 📁 Project Structure
+## 🏗️ Project Architecture
 
 ```text
 support-crm/
-│
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── routes/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   └── ...
-│   │
-│   ├── requirements.txt
-│   └── ...
 │
 ├── frontend/
 │   ├── src/
@@ -235,6 +138,15 @@ support-crm/
 │   ├── package.json
 │   └── vite.config.ts
 │
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── routes.py
+│   │   ├── database_init.py
+│   │   └── ...
+│   │
+│   └── ...
+│
 ├── docs/
 │   └── screenshots/
 │
@@ -245,44 +157,39 @@ support-crm/
 
 ---
 
-# 🚀 Getting Started
+## ⚙️ Getting Started
 
-## Prerequisites
+### Prerequisites
 
-Make sure the following are installed:
+Make sure you have installed:
 
 * Node.js
 * npm
-* Python 3.11+
+* Python 3.x
 * Git
 
----
-
-# 1️⃣ Clone the Repository
+### Frontend Setup
 
 ```bash
-git clone https://github.com/OMsharma200429/support-crm.git
-
-cd support-crm
+cd frontend
+npm install
+npm run dev
 ```
 
----
+Frontend:
 
-# 2️⃣ Backend Setup
+```text
+http://localhost:5173
+```
 
-Navigate to the backend:
+### Backend Setup
 
-```powershell
+```bash
 cd backend
-```
-
-Create a virtual environment:
-
-```powershell
 python -m venv venv
 ```
 
-Activate the virtual environment:
+Windows:
 
 ```powershell
 .\venv\Scripts\Activate.ps1
@@ -290,344 +197,175 @@ Activate the virtual environment:
 
 Install dependencies:
 
-```powershell
+```bash
 pip install -r requirements.txt
 ```
 
-Start the FastAPI server:
+Start the API:
 
-```powershell
+```bash
 uvicorn app.main:app --reload
 ```
 
-The backend will run at:
+Backend:
 
 ```text
 http://127.0.0.1:8000
 ```
 
----
-
-# 3️⃣ Backend API Documentation
-
-FastAPI automatically provides interactive API documentation.
-
-Open:
+API documentation:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-You can use Swagger UI to test the API endpoints directly.
-
 ---
 
-# 4️⃣ Frontend Setup
+## 🔌 API Example
 
-Open another terminal and navigate to the frontend:
-
-```powershell
-cd frontend
-```
-
-Install dependencies:
-
-```powershell
-npm install
-```
-
-Start the development server:
-
-```powershell
-npm run dev
-```
-
-The frontend will normally be available at:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 🔌 API Endpoints
-
-## Get All Tickets
+### Get all tickets
 
 ```http
 GET /api/tickets
 ```
 
----
-
-## Get Ticket
+### Get a specific ticket
 
 ```http
-GET /api/tickets/{ticket_id}
+GET /api/tickets/TKT-0001
 ```
 
-Example:
-
-```text
-GET /api/tickets/TKT-0004
-```
-
----
-
-## Create Ticket
+### Create a ticket
 
 ```http
 POST /api/tickets
 ```
-
-Example request:
 
 ```json
 {
   "customer_name": "John Doe",
   "customer_email": "john@example.com",
   "subject": "Unable to login",
-  "description": "Customer cannot access the account.",
+  "description": "Customer is unable to access the account.",
   "status": "Open",
   "priority": "High"
 }
 ```
 
----
-
-## Update Ticket
+### Update a ticket
 
 ```http
-PUT /api/tickets/{ticket_id}
+PUT /api/tickets/TKT-0001
 ```
-
-Example:
 
 ```json
 {
-  "status": "Resolved"
+  "notes": "Customer contacted support and issue is being investigated."
 }
 ```
 
 ---
 
-## Add Internal Note
+## 🖼️ Screenshots
 
-```http
-PUT /api/tickets/{ticket_id}
-```
-
-Example:
-
-```json
-{
-  "notes": "Customer confirmed the issue has been resolved."
-}
-```
-
----
-
-# 🔄 Production Workflow
+Screenshots are available in:
 
 ```text
-Developer
-    │
-    ▼
-GitHub
-    │
-    ├───────────────┐
-    ▼               ▼
- Vercel           Railway
-    │               │
-    ▼               ▼
-Frontend          Backend
-React             FastAPI
-    │               │
-    └───────┬───────┘
-            │
-            ▼
-         SQLite
+docs/screenshots/
 ```
 
----
+Add screenshots of:
 
-# ☁️ Deployment
-
-## Frontend — Vercel
-
-The React frontend is deployed using Vercel.
-
-Production frontend:
-
-https://frontend-three-psi-oyid8p4g16.vercel.app/
+* Dashboard
+* Ticket Management
+* Ticket Details
+* Analytics
+* Customer Management
 
 ---
 
-## Backend — Railway
-
-The FastAPI backend is deployed using Railway.
-
-Production API:
-
-https://support-crm-production-9149.up.railway.app/
-
----
-
-# 🔐 CORS Configuration
-
-Because the frontend and backend are deployed separately, the FastAPI backend uses CORS middleware.
-
-Local development origins include:
-
-```text
-http://localhost:5173
-http://localhost:5174
-http://localhost:5175
-http://127.0.0.1:5173
-http://127.0.0.1:5174
-http://127.0.0.1:5175
-```
-
-The production frontend is also configured as an allowed origin.
-
-This enables the browser-based React application to communicate with the deployed FastAPI API.
-
----
-
-# 🧪 Development Commands
+## 🌐 Deployment
 
 ### Frontend
 
-Start development server:
-
-```bash
-npm run dev
-```
-
-Build production application:
-
-```bash
-npm run build
-```
-
-Preview production build:
-
-```bash
-npm run preview
-```
-
----
+Deployed using **Vercel**.
 
 ### Backend
 
-Start FastAPI:
+Deployed using **Railway**.
 
-```bash
-uvicorn app.main:app --reload
+```text
+┌──────────────────────┐
+│      User Browser    │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   React + Vite       │
+│       Vercel         │
+└──────────┬───────────┘
+           │ REST API
+           ▼
+┌──────────────────────┐
+│       FastAPI        │
+│       Railway        │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│       SQLite         │
+└──────────────────────┘
 ```
 
 ---
 
-# 🎯 Project Objectives
+## 📈 Future Improvements
 
-The project was developed to demonstrate practical full-stack development skills including:
-
-* React application development
-* TypeScript
-* REST API integration
-* FastAPI backend development
-* Database persistence
-* CRUD operations
-* Search and filtering
-* Responsive dashboard development
-* Frontend/backend communication
-* CORS configuration
-* Production deployment
-* Git and GitHub workflow
+* Authentication and role-based access
+* JWT authentication
+* PostgreSQL database
+* Email notifications
+* File attachments
+* Advanced analytics
+* Agent performance reports
+* Customer communication history
+* Real-time ticket updates
+* Docker containerization
+* Automated testing
+* CI/CD pipeline
 
 ---
 
-# 🔮 Future Improvements
+## 👨‍💻 Author
 
-Planned improvements include:
+### Om Sharma
 
-* [ ] Authentication and authorization
-* [ ] Role-based access control
-* [ ] Agent management
-* [ ] Real-time ticket updates
-* [ ] Email integration
-* [ ] File attachments
-* [ ] Advanced analytics
-* [ ] Audit logs
-* [ ] Pagination
-* [ ] Advanced ticket filtering
-* [ ] Automated testing
-* [ ] CI/CD pipeline
-* [ ] PostgreSQL production database
-* [ ] Docker support
+**Software Developer | BCA**
 
----
+Passionate about building modern web applications, full-stack systems, and intuitive user experiences.
 
-# 🤝 Contributing
+### Connect With Me
 
-Contributions and suggestions are welcome.
+📧 **Email:**
+[Som758510@gmail.com](mailto:Som758510@gmail.com)
 
-### 1. Fork the repository
+💼 **LinkedIn:**
+https://www.linkedin.com/in/omsharma2004/
 
-### 2. Create a feature branch
-
-```bash
-git checkout -b feature/your-feature
-```
-
-### 3. Commit your changes
-
-```bash
-git add .
-
-git commit -m "Add your feature"
-```
-
-### 4. Push the branch
-
-```bash
-git push origin feature/your-feature
-```
-
-### 5. Open a Pull Request
-
----
-
-# 📄 License
-
-This project is currently developed as a portfolio and learning project.
-
----
-
-# 👨‍💻 Author
-
-## Om Sharma
-
-**BCA | Full-Stack Developer | Java Developer**
-
-Interested in building modern web applications, backend systems, and practical software solutions.
-
-### GitHub
-
+🔗 **GitHub:**
 https://github.com/OMsharma200429
 
-### Project Repository
+### Interests
 
-https://github.com/OMsharma200429/support-crm
+* Java
+* Spring Boot
+* React
+* Full-Stack Development
+* UI/UX Design
+* AI & Modern Web Technologies
 
 ---
 
-# ⭐ Support
+## 📄 License
 
-If you found this project useful or interesting, consider giving the repository a ⭐ on GitHub.
-
----
-
-<p align="center">
-  Built with ❤️ using React, TypeScript, FastAPI & SQLite
-</p>
+This project is developed for learning, portfolio, and demonstration purposes.
