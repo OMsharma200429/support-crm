@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { PriorityBadge } from '../components/common/PriorityBadge';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { customers } from '../data/seedData';
-import type { Ticket } from '../types/crm';
+import { updateApiTicket } from '../services/crmService';
 
 const commentOrder = ['customer', 'agent', 'system'];
 
@@ -39,41 +39,53 @@ export function TicketDetailPage({ tickets, isLoading = false, error = null, onT
     : undefined;
   const [composer, setComposer] = useState('');
 
-  const handleSendNote = () => {
-    if (!ticket || !composer.trim() || !onTicketChange) return;
+ const handleSendNote = async () => {
+  if (!ticket || !composer.trim() || !onTicketChange) return;
 
-    const cleanText = composer.trim();
-    const now = new Date();
-    const timestampLabel = now.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const cleanText = composer.trim();
 
-    onTicketChange(ticket.id, (currentTicket) => ({
-      ...currentTicket,
-      updatedAt: now.toISOString(),
-      comments: [
-        ...currentTicket.comments,
-        {
-          id: `note-${Date.now()}`,
-          sender: 'agent',
-          author: 'Ash Scott',
-          text: cleanText,
-          time: 'Just now',
-          type: 'internal',
-        },
-      ],
-      notes: [...currentTicket.notes, cleanText],
-      activities: [
-        {
-          id: `activity-${Date.now()}`,
-          type: 'Note added',
-          detail: 'Internal note added by support team.',
-          time: timestampLabel,
-        },
-        ...currentTicket.activities,
-      ],
-    }));
+  const result = await updateApiTicket(ticket.id, {
+    notes: cleanText,
+  });
 
-    setComposer('');
-  };
+  if (!result) {
+    alert('Failed to save note. Please try again.');
+    return;
+  }
+
+  const now = new Date();
+
+  onTicketChange(ticket.id, (currentTicket) => ({
+    ...currentTicket,
+    updatedAt: result.updated_at ?? now.toISOString(),
+    comments: [
+      ...currentTicket.comments,
+      {
+        id: `note-${Date.now()}`,
+        sender: 'agent',
+        author: 'Ash Scott',
+        text: cleanText,
+        time: 'Just now',
+        type: 'internal',
+      },
+    ],
+    notes: [...currentTicket.notes, cleanText],
+    activities: [
+      {
+        id: `activity-${Date.now()}`,
+        type: 'Note added',
+        detail: 'Internal note added by support team.',
+        time: now.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+        }),
+      },
+      ...currentTicket.activities,
+    ],
+  }));
+
+  setComposer('');
+};
 
   const progress = useMemo(() => {
     if (!ticket) return 0;
