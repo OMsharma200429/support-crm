@@ -453,17 +453,17 @@ export const getApiTickets = async (): Promise<Ticket[]> => {
 
     const data: unknown = await response.json();
 
-    let apiTickets: typeof seedTickets = [];
+    let apiTickets: unknown[] = [];
 
     if (Array.isArray(data)) {
-      apiTickets = data as typeof seedTickets;
+      apiTickets = data;
     } else if (
       typeof data === 'object' &&
       data !== null &&
       'value' in data &&
       Array.isArray(data.value)
     ) {
-      apiTickets = data.value as typeof seedTickets;
+      apiTickets = data.value;
     }
 
     if (apiTickets.length === 0) {
@@ -471,7 +471,9 @@ export const getApiTickets = async (): Promise<Ticket[]> => {
     }
 
     return apiTickets.map((item) =>
-      mapApiTicketToUiTicket(item)
+      mapApiTicketToUiTicket(
+        item as Parameters<typeof mapApiTicketToUiTicket>[0]
+      )
     );
 
   } catch (error) {
@@ -480,8 +482,9 @@ export const getApiTickets = async (): Promise<Ticket[]> => {
       error
     );
 
-    return getSortedTickets();
+    return [];
   }
+
 };
 
 
