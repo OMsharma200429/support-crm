@@ -5,7 +5,7 @@ A modern full-stack Customer Support CRM application for managing support ticket
 ## 🚀 Live Demo
 
 **Frontend:**
-https://support-crm-chi.vercel.app/
+https://frontend-three-psi-oyid8p4g16.vercel.app/
 
 **Backend API:**
 https://support-crm-production-9149.up.railway.app/
