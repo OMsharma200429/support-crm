@@ -558,6 +558,8 @@ Passionate about building full-stack applications, solving practical problems, a
 | 🌐 Portfolio         | [Visit Portfolio](https://om-portfolio-red.vercel.app/)               |
 
 
+---
+
 
 ## 📄 License & Copyright
 
