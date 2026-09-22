@@ -373,6 +373,11 @@ Passionate about building modern web applications, full-stack systems, and intui
 
 ---
 
-## 📄 License
+## 📄 License & Copyright
 
-This project is developed for learning, portfolio, and demonstration purposes.
+© 2026 Om Sharma. All rights reserved.
+
+This project was developed as part of a technical hiring assessment and is published for portfolio and demonstration purposes.
+
+The source code is publicly available for viewing and evaluation. Unauthorized copying, redistribution, modification, or commercial use of the source code is not permitted without prior permission from the author.
+
