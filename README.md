@@ -545,16 +545,6 @@ Passionate about building full-stack applications, solving practical problems, a
 
 ---
 
-## 📄 License & Copyright
-
-© 2026 Om Sharma. All rights reserved.
-
-This project was developed as part of a technical hiring assessment and is published for portfolio and demonstration purposes.
-
-The source code is publicly available for viewing and evaluation. Unauthorized copying, redistribution, modification, or commercial use of the source code is not permitted without prior permission from the author.
-
----
-
 ## ⭐ Project Links
 
 | Resource             | Link                                                                  |
@@ -566,3 +556,16 @@ The source code is publicly available for viewing and evaluation. Unauthorized c
 | 💻 GitHub Repository | [View Source Code](https://github.com/OMsharma200429/support-crm)     |
 | 💼 LinkedIn          | [Connect with Om](https://www.linkedin.com/in/omsharma2004/)          |
 | 🌐 Portfolio         | [Visit Portfolio](https://om-portfolio-red.vercel.app/)               |
+
+
+
+## 📄 License & Copyright
+
+© 2026 Om Sharma. All rights reserved.
+
+This project was developed as part of a technical hiring assessment and is published for portfolio and demonstration purposes.
+
+The source code is publicly available for viewing and evaluation. Unauthorized copying, redistribution, modification, or commercial use of the source code is not permitted without prior permission from the author.
+
+---
+
