@@ -10,15 +10,37 @@
 
 ---
 
+## 🎥 Demo Video
+
+Watch the complete walkthrough and working demonstration of the Support CRM:
+
+**[▶️ Support CRM — Datastraw Technologies Assessment Demo](https://youtu.be/vKO6oPwKPD0)**
+
+The demo covers:
+
+* CRM dashboard
+* Ticket creation and management
+* Search and filtering
+* Ticket details and status updates
+* Internal notes
+* Frontend–backend integration
+* REST API workflow
+* Production deployment
+
+---
+
 ## 🌐 Live Application
 
-**Frontend:**
+**Frontend**
+
 https://frontend-three-psi-oyid8p4g16.vercel.app/
 
-**Backend API:**
+**Backend API**
+
 https://support-crm-production-9149.up.railway.app/
 
-**API Documentation:**
+**Interactive API Documentation**
+
 https://support-crm-production-9149.up.railway.app/docs
 
 ---
@@ -29,7 +51,9 @@ https://support-crm-production-9149.up.railway.app/docs
 
 The application connects a responsive React frontend with a FastAPI REST backend and SQLite database, allowing support data to be created, retrieved, searched, filtered, updated, and persisted through a production deployment.
 
-The project was developed as part of a **technical hiring assessment for the AI + Tech Intern position at Datastraw Technologies**.
+This project was developed as part of a **technical hiring assessment for the AI + Tech Intern position at Datastraw Technologies**.
+
+The project focuses on demonstrating end-to-end development, including frontend development, backend API design, database integration, responsive UI development, and production deployment.
 
 ---
 
@@ -38,7 +62,8 @@ The project was developed as part of a **technical hiring assessment for the AI 
 ### 🎫 Ticket Management
 
 * Create new support tickets
-* Automatically generate ticket IDs and timestamps
+* Automatically generate ticket IDs
+* Automatically record ticket timestamps
 * View complete ticket details
 * Update ticket status
 * Update ticket priority
@@ -57,7 +82,7 @@ The project was developed as part of a **technical hiring assessment for the AI 
 
 ### 🔎 Search & Filtering
 
-* Search tickets globally
+* Global ticket search
 * Search by ticket ID
 * Search by customer
 * Search by subject
@@ -119,7 +144,7 @@ The project was developed as part of a **technical hiring assessment for the AI 
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 ```text
 ┌────────────────────────────┐
@@ -229,13 +254,25 @@ cd support-crm
 
 ### 2. Frontend Setup
 
+Navigate to the frontend directory:
+
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-Frontend will run at:
+Frontend will be available at:
 
 ```text
 http://localhost:5173
@@ -245,32 +282,39 @@ http://localhost:5173
 
 ### 3. Backend Setup
 
-Open a new terminal:
+Open a new terminal and navigate to the backend:
 
 ```bash
 cd backend
+```
+
+Create a virtual environment:
+
+```bash
 python -m venv venv
 ```
 
 #### Windows
 
+Activate the virtual environment:
+
 ```powershell
 .\venv\Scripts\Activate.ps1
 ```
 
-#### Install Dependencies
+Install backend dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-#### Start FastAPI
+Start the FastAPI development server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Backend will run at:
+Backend will be available at:
 
 ```text
 http://127.0.0.1:8000
@@ -280,17 +324,19 @@ http://127.0.0.1:8000
 
 ## 📚 API Documentation
 
-FastAPI automatically provides interactive API documentation.
+The backend uses FastAPI's automatically generated interactive documentation.
 
-After starting the backend, open:
+### Local API Documentation
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-For the deployed API:
+### Production API Documentation
 
 https://support-crm-production-9149.up.railway.app/docs
+
+The Swagger UI can be used to inspect and test the available REST API endpoints.
 
 ---
 
@@ -315,7 +361,7 @@ Example request:
 
 ---
 
-### Get Tickets
+### Get All Tickets
 
 ```http
 GET /api/tickets
@@ -363,13 +409,13 @@ Example:
 
 ## 🖼️ Screenshots
 
-Project screenshots are available in:
+Project screenshots are stored in:
 
 ```text
 docs/screenshots/
 ```
 
-Recommended screenshots:
+Recommended screenshots include:
 
 * Dashboard
 * Ticket Management
@@ -391,22 +437,22 @@ The React frontend is deployed using **Vercel**.
 
 The FastAPI backend is deployed using **Railway**.
 
-### Production Flow
+### Production Architecture
 
 ```text
                     INTERNET
                         │
                         ▼
               ┌─────────────────┐
-              │   Vercel        │
+              │     Vercel      │
               │ React Frontend  │
               └────────┬────────┘
                        │
-                    HTTPS
+                     HTTPS
                        │
                        ▼
               ┌─────────────────┐
-              │   Railway       │
+              │    Railway      │
               │ FastAPI Backend │
               └────────┬────────┘
                        │
@@ -426,19 +472,18 @@ The FastAPI backend is deployed using **Railway**.
 * RESTful API communication
 * FastAPI backend architecture
 * SQLite-based persistent storage
-* Search and filtering logic
+* Search and filtering functionality
 * Responsive dashboard interface
-* Production frontend/backend deployment
-* CORS configuration for cross-origin API requests
-* Interactive API documentation with Swagger UI
+* Frontend–backend integration
+* CORS configuration
+* Interactive Swagger API documentation
+* Production deployment using Vercel and Railway
 
 ---
 
 ## 🔐 Security & Configuration
 
-The project keeps environment-specific configuration separate from application code where applicable.
-
-Before deploying your own instance, review:
+Before deploying another instance of the application, review the following configuration areas:
 
 * CORS configuration
 * API base URL
@@ -446,25 +491,25 @@ Before deploying your own instance, review:
 * Database configuration
 * Production deployment settings
 
-Never commit passwords, API keys, tokens, or other secrets to the repository.
+**Never commit passwords, API keys, authentication tokens, or other sensitive credentials to the repository.**
 
 ---
 
 ## 🔮 Future Improvements
 
-Potential improvements for a production-scale version include:
+With additional development time, the following capabilities could be introduced:
 
 * Authentication and authorization
 * Role-based access control
 * JWT-based authentication
-* PostgreSQL migration
+* PostgreSQL database migration
 * Email notifications
 * File attachments
 * Advanced analytics
 * Agent performance reports
 * Customer communication history
 * Real-time ticket updates
-* Automated testing
+* Automated unit and integration testing
 * Docker containerization
 * CI/CD pipeline
 * Audit logging
@@ -477,16 +522,16 @@ Potential improvements for a production-scale version include:
 
 **Software Developer | BCA**
 
-I enjoy building full-stack applications, solving practical problems, and creating clean and intuitive user experiences.
+Passionate about building full-stack applications, solving practical problems, and creating clean and intuitive user experiences.
 
 ### 🔗 Connect With Me
 
-| Platform     | Link                                              |
-| ------------ | ------------------------------------------------- |
-| 🌐 Portfolio | https://om-portfolio-red.vercel.app/              |
-| 💼 LinkedIn  | https://www.linkedin.com/in/omsharma2004/         |
-| 🐙 GitHub    | https://github.com/OMsharma200429                 |
-| 📧 Email     | [Som758510@gmail.com](mailto:Som758510@gmail.com) |
+| Platform     | Link                                                  |
+| ------------ | ----------------------------------------------------- |
+| 🌐 Portfolio | [Portfolio](https://om-portfolio-red.vercel.app/)     |
+| 💼 LinkedIn  | [LinkedIn](https://www.linkedin.com/in/omsharma2004/) |
+| 🐙 GitHub    | [GitHub](https://github.com/OMsharma200429)           |
+| 📧 Email     | [Som758510@gmail.com](mailto:Som758510@gmail.com)     |
 
 ### Areas of Interest
 
@@ -507,3 +552,17 @@ I enjoy building full-stack applications, solving practical problems, and creati
 This project was developed as part of a technical hiring assessment and is published for portfolio and demonstration purposes.
 
 The source code is publicly available for viewing and evaluation. Unauthorized copying, redistribution, modification, or commercial use of the source code is not permitted without prior permission from the author.
+
+---
+
+## ⭐ Project Links
+
+| Resource             | Link                                                                  |
+| -------------------- | --------------------------------------------------------------------- |
+| 🚀 Live Application  | [Open Support CRM](https://frontend-three-psi-oyid8p4g16.vercel.app/) |
+| 🎥 Demo Video        | [Watch on YouTube](https://youtu.be/vKO6oPwKPD0)                      |
+| ⚙️ Backend API       | [Open API](https://support-crm-production-9149.up.railway.app/)       |
+| 📚 API Documentation | [Swagger UI](https://support-crm-production-9149.up.railway.app/docs) |
+| 💻 GitHub Repository | [View Source Code](https://github.com/OMsharma200429/support-crm)     |
+| 💼 LinkedIn          | [Connect with Om](https://www.linkedin.com/in/omsharma2004/)          |
+| 🌐 Portfolio         | [Visit Portfolio](https://om-portfolio-red.vercel.app/)               |
