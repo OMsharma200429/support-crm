@@ -1,8 +1,16 @@
 # Support CRM
 
-A modern full-stack Customer Support CRM application for managing support tickets, customers, priorities, assignments, statuses, internal notes, and ticket activity through a clean and responsive dashboard.
+> A modern full-stack Customer Support CRM for managing tickets, customers, priorities, assignments, statuses, internal notes, and support activity through a clean and responsive interface.
 
-## 🚀 Live Demo
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://frontend-three-psi-oyid8p4g16.vercel.app/)
+[![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-61DAFB?style=for-the-badge)](https://react.dev/)
+[![Backend](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge)](https://fastapi.tiangolo.com/)
+[![Database](https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge)](https://www.sqlite.org/)
+[![Deployment](https://img.shields.io/badge/Deployed-Vercel%20%2B%20Railway-000000?style=for-the-badge)](https://vercel.com/)
+
+---
+
+## 🌐 Live Application
 
 **Frontend:**
 https://frontend-three-psi-oyid8p4g16.vercel.app/
@@ -10,37 +18,31 @@ https://frontend-three-psi-oyid8p4g16.vercel.app/
 **Backend API:**
 https://support-crm-production-9149.up.railway.app/
 
----
-
-## 📌 Overview
-
-Support CRM is a full-stack customer support management system designed to streamline ticket handling and support operations.
-
-The application provides a centralized dashboard where support agents can:
-
-* Create and manage support tickets
-* Track ticket status and priority
-* Assign tickets to support agents
-* Add internal notes
-* Manage tags and related tickets
-* View customer information
-* Search and filter tickets
-* Monitor ticket activity
-* Work with live backend API data
-
-The frontend is built with React and TypeScript, while the backend provides RESTful APIs using FastAPI.
+**API Documentation:**
+https://support-crm-production-9149.up.railway.app/docs
 
 ---
 
-## ✨ Features
+## 📖 Overview
+
+**Support CRM** is a full-stack customer support ticketing system designed to provide a centralized workspace for managing customer issues and support operations.
+
+The application connects a responsive React frontend with a FastAPI REST backend and SQLite database, allowing support data to be created, retrieved, searched, filtered, updated, and persisted through a production deployment.
+
+The project was developed as part of a **technical hiring assessment for the AI + Tech Intern position at Datastraw Technologies**.
+
+---
+
+## ✨ Key Features
 
 ### 🎫 Ticket Management
 
 * Create new support tickets
+* Automatically generate ticket IDs and timestamps
 * View complete ticket details
 * Update ticket status
-* Update priority
-* Assign tickets
+* Update ticket priority
+* Assign tickets to support agents
 * Add internal notes
 * Manage tags
 * Manage related tickets
@@ -51,11 +53,11 @@ The frontend is built with React and TypeScript, while the backend provides REST
 * Customer profiles
 * Customer contact information
 * Company information
-* Customer-related ticket data
+* Customer-related ticket information
 
 ### 🔎 Search & Filtering
 
-* Global ticket search
+* Search tickets globally
 * Search by ticket ID
 * Search by customer
 * Search by subject
@@ -63,30 +65,28 @@ The frontend is built with React and TypeScript, while the backend provides REST
 * Filter by priority
 * Filter by assignee
 * Filter by customer
-* Filter urgent and unassigned tickets
+* Filter urgent tickets
+* Filter unassigned tickets
 
-### 📊 Dashboard
+### 📊 Dashboard & Analytics
 
-* Overview dashboard
+* Support dashboard
 * Ticket statistics
-* Analytics
+* Ticket activity overview
 * Customer overview
-* Support activity tracking
+* Support analytics
+* Ticket status distribution
 
-### 🔄 REST API Integration
+### 📝 Support Activity
 
-The frontend communicates with the FastAPI backend through REST APIs.
-
-Supported operations include:
-
-* `GET /api/tickets`
-* `POST /api/tickets`
-* `GET /api/tickets/{ticket_id}`
-* `PUT /api/tickets/{ticket_id}`
+* Internal ticket notes
+* Ticket updates
+* Related ticket information
+* Activity tracking
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
 ### Frontend
 
@@ -109,17 +109,65 @@ Supported operations include:
 * REST API
 * CORS
 
-### Development Tools
+### Development & Deployment
 
 * Git
 * GitHub
-* VS Code
+* Visual Studio Code
 * Vercel
 * Railway
 
 ---
 
-## 🏗️ Project Architecture
+## 🏗️ Architecture
+
+```text
+┌────────────────────────────┐
+│        User Browser        │
+└──────────────┬─────────────┘
+               │
+               ▼
+┌────────────────────────────┐
+│    React + TypeScript      │
+│          Vercel            │
+└──────────────┬─────────────┘
+               │
+               │ REST API
+               ▼
+┌────────────────────────────┐
+│       Python + FastAPI     │
+│          Railway           │
+└──────────────┬─────────────┘
+               │
+               ▼
+┌────────────────────────────┐
+│          SQLite            │
+└────────────────────────────┘
+```
+
+### Request Flow
+
+```text
+User Action
+    ↓
+React UI
+    ↓
+API Service Layer
+    ↓
+FastAPI Endpoint
+    ↓
+Database Operation
+    ↓
+SQLite
+    ↓
+API Response
+    ↓
+Updated React UI
+```
+
+---
+
+## 📂 Project Structure
 
 ```text
 support-crm/
@@ -145,7 +193,7 @@ support-crm/
 │   │   ├── database_init.py
 │   │   └── ...
 │   │
-│   └── ...
+│   └── requirements.txt
 │
 ├── docs/
 │   └── screenshots/
@@ -161,14 +209,25 @@ support-crm/
 
 ### Prerequisites
 
-Make sure you have installed:
+Make sure the following are installed:
 
-* Node.js
+* [Node.js](https://nodejs.org/)
 * npm
 * Python 3.x
 * Git
 
-### Frontend Setup
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/OMsharma200429/support-crm.git
+cd support-crm
+```
+
+---
+
+### 2. Frontend Setup
 
 ```bash
 cd frontend
@@ -176,90 +235,126 @@ npm install
 npm run dev
 ```
 
-Frontend:
+Frontend will run at:
 
 ```text
 http://localhost:5173
 ```
 
-### Backend Setup
+---
+
+### 3. Backend Setup
+
+Open a new terminal:
 
 ```bash
 cd backend
 python -m venv venv
 ```
 
-Windows:
+#### Windows
 
 ```powershell
 .\venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+#### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Start the API:
+#### Start FastAPI
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Backend:
+Backend will run at:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-API documentation:
+---
+
+## 📚 API Documentation
+
+FastAPI automatically provides interactive API documentation.
+
+After starting the backend, open:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
+For the deployed API:
+
+https://support-crm-production-9149.up.railway.app/docs
+
 ---
 
-## 🔌 API Example
+## 🔌 REST API
 
-### Get all tickets
-
-```http
-GET /api/tickets
-```
-
-### Get a specific ticket
-
-```http
-GET /api/tickets/TKT-0001
-```
-
-### Create a ticket
+### Create Ticket
 
 ```http
 POST /api/tickets
 ```
+
+Example request:
 
 ```json
 {
   "customer_name": "John Doe",
   "customer_email": "john@example.com",
   "subject": "Unable to login",
-  "description": "Customer is unable to access the account.",
-  "status": "Open",
-  "priority": "High"
+  "description": "Customer is unable to access the account."
 }
 ```
 
-### Update a ticket
+---
+
+### Get Tickets
 
 ```http
-PUT /api/tickets/TKT-0001
+GET /api/tickets
 ```
+
+Optional query parameters:
+
+```text
+?status=Open
+?search=John
+```
+
+---
+
+### Get Ticket Details
+
+```http
+GET /api/tickets/{ticket_id}
+```
+
+Example:
+
+```http
+GET /api/tickets/TKT-0001
+```
+
+---
+
+### Update Ticket
+
+```http
+PUT /api/tickets/{ticket_id}
+```
+
+Example:
 
 ```json
 {
+  "status": "In Progress",
   "notes": "Customer contacted support and issue is being investigated."
 }
 ```
@@ -268,71 +363,111 @@ PUT /api/tickets/TKT-0001
 
 ## 🖼️ Screenshots
 
-Screenshots are available in:
+Project screenshots are available in:
 
 ```text
 docs/screenshots/
 ```
 
-Add screenshots of:
+Recommended screenshots:
 
 * Dashboard
 * Ticket Management
 * Ticket Details
+* Create Ticket
+* Search & Filtering
 * Analytics
 * Customer Management
 
 ---
 
-## 🌐 Deployment
+## 🚀 Deployment
 
 ### Frontend
 
-Deployed using **Vercel**.
+The React frontend is deployed using **Vercel**.
 
 ### Backend
 
-Deployed using **Railway**.
+The FastAPI backend is deployed using **Railway**.
+
+### Production Flow
 
 ```text
-┌──────────────────────┐
-│      User Browser    │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│   React + Vite       │
-│       Vercel         │
-└──────────┬───────────┘
-           │ REST API
-           ▼
-┌──────────────────────┐
-│       FastAPI        │
-│       Railway        │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│       SQLite         │
-└──────────────────────┘
+                    INTERNET
+                        │
+                        ▼
+              ┌─────────────────┐
+              │   Vercel        │
+              │ React Frontend  │
+              └────────┬────────┘
+                       │
+                    HTTPS
+                       │
+                       ▼
+              ┌─────────────────┐
+              │   Railway       │
+              │ FastAPI Backend │
+              └────────┬────────┘
+                       │
+                       ▼
+              ┌─────────────────┐
+              │     SQLite      │
+              │    Database     │
+              └─────────────────┘
 ```
 
 ---
 
-## 📈 Future Improvements
+## 🧠 Technical Highlights
 
-* Authentication and role-based access
-* JWT authentication
-* PostgreSQL database
+* Component-based React architecture
+* Type-safe frontend development with TypeScript
+* RESTful API communication
+* FastAPI backend architecture
+* SQLite-based persistent storage
+* Search and filtering logic
+* Responsive dashboard interface
+* Production frontend/backend deployment
+* CORS configuration for cross-origin API requests
+* Interactive API documentation with Swagger UI
+
+---
+
+## 🔐 Security & Configuration
+
+The project keeps environment-specific configuration separate from application code where applicable.
+
+Before deploying your own instance, review:
+
+* CORS configuration
+* API base URL
+* Environment variables
+* Database configuration
+* Production deployment settings
+
+Never commit passwords, API keys, tokens, or other secrets to the repository.
+
+---
+
+## 🔮 Future Improvements
+
+Potential improvements for a production-scale version include:
+
+* Authentication and authorization
+* Role-based access control
+* JWT-based authentication
+* PostgreSQL migration
 * Email notifications
 * File attachments
 * Advanced analytics
 * Agent performance reports
 * Customer communication history
 * Real-time ticket updates
-* Docker containerization
 * Automated testing
+* Docker containerization
 * CI/CD pipeline
+* Audit logging
 
 ---
 
@@ -342,32 +477,24 @@ Deployed using **Railway**.
 
 **Software Developer | BCA**
 
-Passionate about building modern web applications, full-stack systems, and intuitive user experiences.
+I enjoy building full-stack applications, solving practical problems, and creating clean and intuitive user experiences.
 
 ### 🔗 Connect With Me
 
-| Platform         | Link                                              |
-| ---------------- | ------------------------------------------------- |
-| 🌐 **Portfolio** | https://om-portfolio-red.vercel.app/              |
-| 💼 **LinkedIn**  | https://www.linkedin.com/in/omsharma2004/         |
-| 🐙 **GitHub**    | https://github.com/OMsharma200429                 |
-| 📧 **Email**     | [Som758510@gmail.com](mailto:Som758510@gmail.com) |
+| Platform     | Link                                              |
+| ------------ | ------------------------------------------------- |
+| 🌐 Portfolio | https://om-portfolio-red.vercel.app/              |
+| 💼 LinkedIn  | https://www.linkedin.com/in/omsharma2004/         |
+| 🐙 GitHub    | https://github.com/OMsharma200429                 |
+| 📧 Email     | [Som758510@gmail.com](mailto:Som758510@gmail.com) |
 
-### 🛠️ Interests
-
-* Java
-* Spring Boot
-* React
-* Full-Stack Development
-* UI/UX Design
-* AI & Modern Web Technologies
-
-### Interests
+### Areas of Interest
 
 * Java
 * Spring Boot
 * React
 * Full-Stack Development
+* REST APIs
 * UI/UX Design
 * AI & Modern Web Technologies
 
@@ -380,4 +507,3 @@ Passionate about building modern web applications, full-stack systems, and intui
 This project was developed as part of a technical hiring assessment and is published for portfolio and demonstration purposes.
 
 The source code is publicly available for viewing and evaluation. Unauthorized copying, redistribution, modification, or commercial use of the source code is not permitted without prior permission from the author.
-
